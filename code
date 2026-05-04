@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>to do list</title>
+    <style>
+        h1{
+            font-weight:300;
+            text-align: center;
+            font-weight: 500;
+            color: whitesmoke;
+            background-color: black;
+            width:250px;
+            margin-left: 450px;
+        }
+        .todo{
+            height:35px;
+            width:350px;
+            color:black;
+            text-align: center;
+            border-radius:10px;
+        }
+        .button{
+            height:43px;
+            width: 98px;
+            border-radius:10px;
+            border-color: black;
+            background-color: rgb(5,119,19);
+            cursor:grab;
+            color: bisque;
+        }
+        .todo-container{
+            display: grid;
+            grid-template-columns: 400px 100px 100px;
+        }
+        .four{
+            border-radius: 10px;
+        }
+        #todo-date{
+            height: 40px;
+            width:140px;
+            border-radius: 10px;
+            margin-top: 3px;
+        }
+        .grid-container{
+            display: grid;
+            grid-template-columns: 400px 150px 100px;
+             column-gap: 20px;
+            row-gap: 25px;
+            margin:15px;
+            align-items: center;
+            justify-content: center;
+
+        }
+        #todo-input #todo-date{
+            font-size: 15px;
+            padding: 3px;
+        }
+        .deletebtn{
+            border-radius: 10px;
+            background-color: rgb(81,4,4);
+            height:40px;
+            color:white;
+            cursor:pointer;
+
+           
+        }
+    </style>
+</head>
+<body>
+    <h1>TO DO APP</h1>
+    <div class="grid-container">
+    <input type="text" placeholder="Enter TODO here" class="todo" id="todo-input">
+    <INPUT type="date" id="todo-date">
+    <button class="button" onclick="addTodo()">ADD</button></div>
+    <div class="todo-container  grid-container" ></div>
+    
+    <script>
+        let todoList=[
+        {item:'milk leke ana h',
+        dueDate:'3/5/2024'},
+        {item:'padhai krni h',
+        dueDate:'3/5/2024'}];
+        displayItems();
+        function addTodo(){
+            let inputElement=document.querySelector('#todo-input');
+            let dateElement=document.querySelector('#todo-date');
+            let dateItem= dateElement.value;
+            let todoItem = inputElement.value;
+            todoList.push({item:todoItem,dueDate:dateItem});
+            inputElement.value='';
+            dateElement.value='';
+            displayItems();
+        }
+        function displayItems(){
+            let containerElement=document.querySelector('.todo-container');
+            let newHtml='';
+            for(i=0;i<todoList.length;i++){
+                let item=todoList[i].item;
+                let dueDate=todoList[i].dueDate;
+                newHtml+=`<span>${item}</span>
+                    <span>${dueDate}</span>
+                <button class="deletebtn" onclick="todoList.splice(${i},1) ;displayItems();">DELETE</button>`;
+            }
+            containerElement.innerHTML=newHtml;
+        }
+    </script>
+</body>
+</html>
